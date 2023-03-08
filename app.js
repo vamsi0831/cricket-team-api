@@ -40,11 +40,11 @@ app.get("/players/", async (request, response) => {
     SELECT * 
     FROM cricket_team;`;
   const playersArray = await db.all(getPlayersQuery);
-  const playerListArray = [];
-  for (eachPlayer of playersArray) {
-    playerListArray.push(convertDbObjectToResponseObject(eachPlayer));
-  }
-  response.send(playerListArray);
+  response.send(
+    playersArray.map((eachPlayer) =>
+      convertDbObjectToResponseObject(eachPlayer)
+    )
+  );
 });
 
 //API 2
